@@ -1,0 +1,34 @@
+block variables
+
+div(id='navbar-row' class='navbar-fixed')
+  ul(id='dropdown1' class='dropdown-content')
+    li
+      a(href='#!') one
+    li
+      a(href='#!') two
+    li
+      a(href='#!') three
+    li(class='divider')
+    li
+      a(href='#!') four
+        i(class='material-icons') view_module
+    li
+      a(href='#!') five
+        i(class='material-icons') cloud
+
+  nav
+    div(class='nav-wrapper')
+      a(href='/' class='brand-logo ml-3') TodoApp
+      ul(id='nav-mobile' class='right hide-on-med-and-down')
+        li
+          a(href='/home') Home
+        if user_session.isAnon
+          li
+            a(href='/login') Login
+        else if !user_session.isAnon
+          li
+            a(href='#' class='dropdown-button' data-activates='dropdown1')= user_session.firstName
+          li
+            a(href='/logout') Logout
+
+

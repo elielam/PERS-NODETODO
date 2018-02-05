@@ -1,0 +1,9 @@
+extends ../templates/layout
+
+block content
+
+  div(id='error-row' class='row pt-0 mb-0 red lighten-1 white-text center-align')
+    div(id='error-col' class='col s12')
+      h1(class='pt-5 m-0')= message
+      h2= error.status
+      pre #{error.stack}

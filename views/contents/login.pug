@@ -1,0 +1,25 @@
+extends ../templates/layout
+
+block variables
+    - var user_session = session
+
+block content
+
+    div(class='container')
+        div(class='row center-align pt-4 red-text lighten-2')
+            h5 Login page
+
+    div(class='container')
+        form(class='' action='/login/login_check' method='post')
+            div(class='row')
+                div(class='input-field col s6 offset-s3')
+                    i(class='material-icons prefix') account_circle
+                    input(id='loginMail' name='loginMail' type='email' class='validate')
+                    label(for='loginMail') Email
+            div(class='row')
+                div(class='input-field col s6 offset-s3')
+                    i(class='material-icons prefix') lock_outline
+                    input(id='loginPass' name='loginPass' type='password' class='validate')
+                    label(for='loginPass') Password
+            div(class='row')
+                input(id='submit' type='submit' class='waves-effect waves-light btn col s4 offset-s4 red lighten-2')
