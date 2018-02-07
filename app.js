@@ -5,20 +5,23 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('cookie-session');
-const db = require(`${__dirname}/lib/models/index.js`)
 
 var index = require('./routes/index');
 var login = require('./routes/login');
+var todo = require('./routes/todo');
 
 var app = express();
 
 // Default anonymous account
-const anonUser = {firstName: 'anon', lastName: 'anon', age: 18, mail:'anon@anon.fr', password: null, isAnon: true, isLogged: false};
+const anonUser = {id: 0, firstName: 'anon', lastName: 'anon', age: 18, mail:'anon@anon.fr', password: null, isAnon: true, isLogged: false};
 // Initialise anonymous session at connection
 app.use(session({secret: 'todotopsecret'}))
     .use(function(req, res, next){
         if (typeof(req.session.user) === 'undefined') {
             req.session.user = anonUser;
+        }
+        if (typeof(req.session.todos) === 'undefined') {
+            req.session.todos = [];
         }
         next();
     });
@@ -37,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/login', login);
+app.use('/todo', todo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -53,7 +57,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('./contents/error');
+  res.render('./contents/error', { session: req.session});
 });
 
 module.exports = app;

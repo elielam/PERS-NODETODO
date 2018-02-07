@@ -8,7 +8,7 @@ const anonUser = {firstName: 'anon', lastName: 'anon', mail:'anon@anon.fr', pass
 
 router.get('/', function(req, res, next) {
     res.render('./contents/login', {
-        session: req.session.user
+        session: req.session
     });
 });
 
@@ -19,10 +19,9 @@ router.post('/login_check', urlencodedParser , function(req, res, next) {
             password: req.body.loginPass
         }
     }).then((user) => {
-        console.log(user);
         if (user) {
             req.session.user = user;
-            res.redirect('/')
+            res.redirect('/todo')
         } else {
             req.session.user = anonUser;
             res.redirect('/login');

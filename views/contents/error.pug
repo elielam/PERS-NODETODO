@@ -1,5 +1,8 @@
 extends ../templates/layout
 
+block variables
+  - var user_session = session.user
+
 block content
 
   div(id='error-row' class='row pt-0 mb-0 red lighten-1 white-text center-align')

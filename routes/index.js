@@ -4,15 +4,16 @@ const db = require(`${__dirname}/../lib/models/index.js`)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('./contents/index', { title: 'TodoApp', session: req.session.user });
+  res.render('./contents/index', { session: req.session});
 })
 .get('/home', function(req, res, next) {
-  res.render('./contents/index', { title: 'TodoApp', session: req.session.user });
+  res.render('./contents/index', { session: req.session});
 });
 
 // LOGOUT
 router.get('/logout', function(req, res, next) {
     req.session.user = undefined;
+    req.session.todos = undefined;
     req.session = undefined;
     res.redirect('/');
 });
