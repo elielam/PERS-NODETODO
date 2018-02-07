@@ -6,6 +6,17 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.get('/', function(req, res, next) {
     if(req.session.user.isAnon === false ) {
+
+        db.Category.findAll({
+            where: {
+                type: 'todo'
+            }
+        }).then((category) => {
+            for (cat in category.Category) {
+                console.log(cat);
+            }
+        });
+
         db.Todo.findAll({
             where: {
                 UserId: req.session.user.id
@@ -14,6 +25,7 @@ router.get('/', function(req, res, next) {
             req.session.todos = todos;
             res.redirect('/');
         })
+
     } else {
         res.redirect('/');
     }
@@ -21,7 +33,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/add', urlencodedParser, function(req, res, next) {
     if(req.session.user.isAnon === false ) {
-        db.Todo.create({title: req.body.todoTitle, complete: false, UserId: req.session.user.id}).then(todo => {
+        db.Todo.create({title: req.body.todoTitle, complete: false, UserId: req.session.user.id, CatId: 0}).then(todo => {
             console.log('todo add !');
             res.redirect('/todo');
         })

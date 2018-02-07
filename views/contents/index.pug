@@ -33,7 +33,7 @@ block content
             div(class='col s4 right-align')
               i(class='fa fa-plus')
 
-        div(class='col s12 pb-2 todo-list mCustomScrollbar')
+        div(class='col s12 pb-2 todo-list mCustomScrollbar mx-0 px-0' data-mcs-theme='dark')
           ul
             for todo in session.todos
               if todo.complete === false
@@ -41,7 +41,7 @@ block content
                   div(class='row m-0')
                   div(class='col s6 left-align')
                     p(class='mt-1')= todo.title
-                  div(class='col s1 offset-s4 right-align')
+                  div(class='col s1 offset-s3 right-align')
                     span(class='mt-1')
                       a(class='black-text') ✓
                   div(class='col s1 right-align')
@@ -53,10 +53,36 @@ block content
             input(id='todoTitle' name='todoTitle' type='text' class='validate col s12' placeholder='Enter new todo')
             input(id='submit' type='submit' class='waves-effect waves-light btn offset-s1 btn red lighten-2 mt-2' value='+' style='display:none')
 
-      div(class='col s12 m4 offset-m1 red')
-        p test
+      div(id='' class='col s12 m4 offset-m1 px-0')
+        div(class='col s12 border border-dark border-top-0 border-left-0 border-right-0 center-align')
+            h6(class='m-0 pb-2') Projects
+        for project in session.projects
+          div(class='col s12 border border-dark border-top-0 border-left-0 border-right-0')
+            div(class='row valign-wrapper pt-3')
+              div(class='col s4 left-align')
+                div(class='row m-0')
+                  div(class='col s12')
+                    p(class='p-0 m-0 font-weight-bold')= project.title
+                  div(class='col s12')
+                    blockquote(class='p-0 m-0')
+                      p(class='m-0 ml-2')= project.size+' mb'
+              div(class='col s6 px-0')
+                div(class='row m-0 p-0')
+                  div(class='col s12 d-inline-block')
+                    - var languagesArr = project.language.split(',')
+                      for lang in languagesArr
+                        p(class='p-0 m-0 ml-2 text-uppercase d-inline lang-'+lang )= lang
 
-      div(class='col s12 m2 offset-m1 green')
+              div(class='col s1 offset-s3 pr-0')
+                if project.isFav === false
+                  i(class='far fa-star')
+                else
+                  i(class='fas fa-star')
+              div(class='col s1 right-align')
+                i(class='fa fa-arrow-right')
+
+
+      div(class='col s12 m2 offset-m1 ')
         p test
 
 

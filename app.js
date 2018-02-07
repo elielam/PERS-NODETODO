@@ -9,6 +9,7 @@ var session = require('cookie-session');
 var index = require('./routes/index');
 var login = require('./routes/login');
 var todo = require('./routes/todo');
+var project = require('./routes/project');
 
 var app = express();
 
@@ -22,6 +23,18 @@ app.use(session({secret: 'todotopsecret'}))
         }
         if (typeof(req.session.todos) === 'undefined') {
             req.session.todos = [];
+        }
+        if (typeof(req.session.projects) === 'undefined') {
+            req.session.projects = [];
+        }
+        if (typeof(req.session.cat) === 'undefined') {
+            req.session.cat = [];
+        }
+        if (typeof(req.session.cat.todos) === 'undefined') {
+            req.session.cat.todos = [];
+        }
+        if (typeof(req.session.cat.projects) === 'undefined') {
+            req.session.cat.projects = [];
         }
         next();
     });
@@ -37,10 +50,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 
 app.use('/', index);
 app.use('/login', login);
 app.use('/todo', todo);
+app.use('/project', project);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

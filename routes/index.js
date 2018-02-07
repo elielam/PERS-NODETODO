@@ -4,6 +4,7 @@ const db = require(`${__dirname}/../lib/models/index.js`)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    console.log(req.session.cat);
   res.render('./contents/index', { session: req.session});
 })
 .get('/home', function(req, res, next) {
