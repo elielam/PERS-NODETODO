@@ -21,7 +21,7 @@ router.post('/login_check', urlencodedParser , function(req, res, next) {
     }).then((user) => {
         if (user) {
             req.session.user = user;
-            res.redirect('/todo')
+            res.redirect('/cat')
         } else {
             req.session.user = anonUser;
             res.redirect('/login');
