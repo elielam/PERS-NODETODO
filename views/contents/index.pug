@@ -31,22 +31,31 @@ block content
             div(class='col s4 center-align')
               p(class='m-0') TODO
             div(class='col s4 right-align')
-              i(class='fa fa-plus')
+              a(href='/cat/add/t')
+                i(class='fa fa-plus')
 
         div(class='col s12 pb-2 todo-list mCustomScrollbar mx-0 px-0' data-mcs-theme='dark')
-          ul
-            for todo in session.todos
-              if todo.complete === false
+          for category in session.categories
+            if category.type === 'todo'
+              ul(class='m-0')
                 li
-                  div(class='row m-0')
-                  div(class='col s6 left-align')
-                    p(class='mt-1')= todo.title
-                  div(class='col s1 offset-s3 right-align')
-                    span(class='mt-1')
-                      a(class='black-text') ✓
-                  div(class='col s1 right-align')
-                    span(class='mt-1')
-                      a(class='black-text' href='/todo/del/'+todo.id) ✘
+                  div(class='col s12 m-0 p-0 border border-left-0 border-right-0 border-top-0')
+                    p(class='')= category.title
+                ul(class='')
+                  for todo in session.todos
+                    if todo.complete === false
+                      if todo.CatId === category.id
+                        li
+                          div(class='row m-0')
+                            div(class='col s12 mt-2')
+                            div(class='col s6 left-align')
+                              p(class='mt-1')= todo.title
+                            div(class='col s1 offset-s3 right-align')
+                              span(class='mt-1')
+                                a(class='black-text') ✓
+                            div(class='col s1 right-align')
+                              span(class='mt-1')
+                                a(class='black-text' href='/todo/del/'+todo.id) ✘
 
         div(class='col s12')
           form(action='/todo/add' method='post')
